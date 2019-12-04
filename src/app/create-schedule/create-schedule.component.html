@@ -1,0 +1,8 @@
+<div>
+  <ul>
+    <li *ngFor='let flat of flats'>{{flat.name}}</li>
+  </ul>
+  <ul>
+    <li *ngFor='let week of scheduleList'>{{week.fromTo}} - {{week.flatNo.name}}</li>
+  </ul>
+</div>

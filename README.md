@@ -1,14 +1,18 @@
 # SnowClearingSchedule
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.0.
+This project creates a schedule for snow clearing in your building based on flats in it and parking lots.
+Clearing the parking road has a separate schedule and observes not to put the same owner to clean the yard and the parking road at the same week
+
+## Ideas to develop
+
+- Enter flats and parking lots data pages
+- display map of parking lots
+- choose whether to have parking lots schedule
+- Extract result in PDF file
 
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
 ## Build
 

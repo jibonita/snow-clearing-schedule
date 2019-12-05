@@ -1,8 +1,11 @@
 <div>
-  <ul>
-    <li *ngFor='let flat of flats'>{{flat.name}}</li>
-  </ul>
-  <ul>
-    <li *ngFor='let week of scheduleList'>{{week.fromTo}} - {{week.flatNo.name}}</li>
-  </ul>
+  <table>
+    <tr *ngFor="let week of scheduleList">
+      <td class="md-4">{{ week.fromTo }}</td>
+      <td class="md-4">{{ week.flatNo.name }}</td>
+      <td class="md-4">
+        {{ week.parkingLot.name }} ({{ week.parkingLot.ownerName }})
+      </td>
+    </tr>
+  </table>
 </div>

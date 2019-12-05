@@ -1,6 +1,12 @@
-div{
-    display: flex;
+div,
+li {
+  display: flex;
 }
-li{
-    display: block;
+li {
+  list-style-type: none;
+}
+.md-4 {
+  padding: 10px 20px;
+  font-size: 18px;
+  border: 1px solid gray;
 }

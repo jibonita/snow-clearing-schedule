@@ -1,5 +1,6 @@
 import { DataEntry } from "./../data/database";
 import { Component, OnInit } from "@angular/core";
+import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: "app-create-schedule",
@@ -14,29 +15,32 @@ export class CreateScheduleComponent implements OnInit {
   endWeek = new Date(2020, 2, 30);
   scheduleList = [];
 
-  constructor(private data: DataEntry) {}
+  startEndDateForm = this.fb.group({
+    startWeek: ['', Validators.required],
+    endWeek: ['', Validators.required],
+  });
 
-  ngOnInit() {
-    this.fillScheduleWeeks();
+  minStartDate: Date;
+  minEndDate: Date;
+
+  constructor(private data: DataEntry,
+    private fb: FormBuilder,
+  ) {
+    let d = new Date();
+    this.minStartDate = new Date(d.getFullYear(), d.getMonth(), this.getMonday(d));
+    d = new Date(d.getFullYear() + 1, 2, 15);
+    this.minEndDate = new Date(d.getFullYear(), d.getMonth(), this.getMonday(d));
   }
 
-  shuffle(arrayOrig) {
-    // const array = [...arrayOrig];
-    const array = arrayOrig.filter(elem => elem.active);
-    let currentIndex = array.length;
-    let randomIndex;
+  ngOnInit() {
+    // this.fillScheduleWeeks();
+  }
 
-    // While there remain elements to shuffle...
-    while (0 !== currentIndex) {
-      // Pick a remaining element...
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex -= 1;
+  generateSchedule() {
+    this.startWeek = this.startEndDateForm.value.startWeek;
+    this.endWeek = this.startEndDateForm.value.endWeek;
 
-      // And swap it with the current element.
-      this.swapElements(array, currentIndex, randomIndex);
-    }
-
-    return array;
+    this.fillScheduleWeeks();
   }
 
   fillScheduleWeeks() {
@@ -44,7 +48,7 @@ export class CreateScheduleComponent implements OnInit {
 
     this.addParkingLotsSchedule();
 
-    return this.scheduleList;
+    // return this.scheduleList;
   }
 
   addFrontYardSchedule() {
@@ -93,6 +97,25 @@ export class CreateScheduleComponent implements OnInit {
     }
   }
 
+  shuffle(arrayOrig) {
+    // const array = [...arrayOrig];
+    const array = arrayOrig.filter(elem => elem.active);
+    let currentIndex = array.length;
+    let randomIndex;
+
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+
+      // And swap it with the current element.
+      this.swapElements(array, currentIndex, randomIndex);
+    }
+
+    return array;
+  }
+
   addDays(date, days) {
     const result = new Date(date);
     result.setDate(result.getDate() + days);
@@ -111,5 +134,9 @@ export class CreateScheduleComponent implements OnInit {
     const temporaryValue = array[currentIndex];
     array[currentIndex] = array[swapIndex];
     array[swapIndex] = temporaryValue;
+  }
+
+  getMonday(date) {
+    return date.getDate() + (1 + 7 - date.getDay()) % 7;
   }
 }

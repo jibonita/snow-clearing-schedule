@@ -1,11 +1,29 @@
-<div>
-  <table>
-    <tr *ngFor="let week of scheduleList">
-      <td class="md-4">{{ week.fromTo }}</td>
-      <td class="md-4">{{ week.flatNo.name }}</td>
-      <td class="md-4">
-        {{ week.parkingLot.name }} ({{ week.parkingLot.ownerName }})
-      </td>
-    </tr>
+<form [formGroup]="startEndDateForm" (submit)="generateSchedule()" *ngIf="!scheduleList.length">
+  Start week <input type="text" formControlName="startWeek" [minDate]="minStartDate" bsDatepicker
+    [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }" [daysDisabled]="[6,0,2,3,4,5]">
+  End week <input type="text" formControlName="endWeek" [minDate]="minEndDate" bsDatepicker
+    [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }" [daysDisabled]="[6,0,2,3,4,5]">
+  <button type="submit" [disabled]="!startEndDateForm.valid" class="btn btn-success m-r-20">Generate</button>
+</form>
+
+<div *ngIf="scheduleList.length">
+  <table class="table-stripe">
+    <thead>
+      <tr>
+        <th>Седмица</th>
+        <th>Двор</th>
+        <th>Рампа</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let week of scheduleList">
+        <td class="md-4">{{ week.fromTo }}</td>
+        <td class="md-4">{{ week.flatNo.name }}</td>
+        <td class="md-4">
+          {{ week.parkingLot.name }} ({{ week.parkingLot.ownerName }})
+        </td>
+      </tr>
+    </tbody>
+
   </table>
 </div>

@@ -1,0 +1,5 @@
+<form [formGroup]="ownersForm" (submit)="saveOwner()">
+  Title <input type="text" formControlName="title">
+  Owner Name<input type="text" formControlName="ownerName">
+  <button type="submit" class="btn btn-success m-r-20">Save</button>
+</form>

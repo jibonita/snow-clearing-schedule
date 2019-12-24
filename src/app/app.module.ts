@@ -7,10 +7,14 @@ import { CreateScheduleComponent } from "./create-schedule/create-schedule.compo
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ReactiveFormsModule } from '@angular/forms';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [AppComponent, CreateScheduleComponent],
-  imports: [BrowserModule, BrowserAnimationsModule,
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    AppRoutingModule,
     ReactiveFormsModule,
     BsDatepickerModule.forRoot(),
   ],

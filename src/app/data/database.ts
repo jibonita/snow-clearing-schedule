@@ -3,20 +3,20 @@ import { Injectable } from "@angular/core";
 Injectable();
 export class DataEntry {
   owners = [
-    { id: 1, name: "ap. 1" },
-    { id: 2, name: "ap. 2" },
-    { id: 3, name: "ap. 3" },
-    { id: 4, name: "ap. 4" },
-    { id: 5, name: "ap. 5" },
-    { id: 6, name: "ap. 6" },
-    { id: 7, name: "ap. 7" },
-    { id: 8, name: "ap. 8" },
-    { id: 9, name: "ap. 9" },
-    { id: 10, name: "ap. 10" },
-    { id: 11, name: "ap. 11" },
-    { id: 12, name: "parter" },
-    { id: 13, name: "parking lot #3" },
-    { id: 14, name: "parking lot #5" }
+    { id: 1, title: "ap. 1", ownerName: '' },
+    { id: 2, title: "ap. 2", ownerName: '' },
+    { id: 3, title: "ap. 3", ownerName: '' },
+    { id: 4, title: "ap. 4", ownerName: '' },
+    { id: 5, title: "ap. 5", ownerName: '' },
+    { id: 6, title: "ap. 6", ownerName: '' },
+    { id: 7, title: "ap. 7", ownerName: '' },
+    { id: 8, title: "ap. 8", ownerName: '' },
+    { id: 9, title: "ap. 9", ownerName: '' },
+    { id: 10, title: "ap. 10", ownerName: '' },
+    { id: 11, title: "ap. 11", ownerName: '' },
+    { id: 12, title: "parter", ownerName: '' },
+    { id: 13, title: "parking lot #3", ownerName: '' },
+    { id: 14, title: "parking lot #5", ownerName: '' }
   ];
   flats = [
     { id: 1, name: "ap. 1", owner: 1, active: true },

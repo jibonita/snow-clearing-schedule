@@ -11,8 +11,8 @@ export class CreateScheduleComponent implements OnInit {
   owners = this.data.owners;
   flats = this.data.flats;
   parkingLots = this.data.parkingLots;
-  startWeek = new Date(2019, 11, 2);
-  endWeek = new Date(2020, 2, 30);
+  startWeek: Date;
+  endWeek: Date;
   scheduleList = [];
 
   startEndDateForm = this.fb.group({

@@ -1,5 +1,17 @@
 <form [formGroup]="ownersForm" (submit)="saveOwner()">
-  Title <input type="text" formControlName="title">
-  Owner Name<input type="text" formControlName="ownerName">
-  <button type="submit" class="btn btn-success m-r-20">Save</button>
+  <div formArrayName="items" *ngFor="let item of ownersForm.get('items').controls; let i = index;">
+    <div [formGroupName]="i">
+      Title
+      <input formControlName="title" placeholder="apartment title">
+      Owner Name
+      <input formControlName="ownerName" placeholder="owner name">
+      <button (click)="removeItem(i)">Remove</button>
+    </div>
+    <!-- Chosen name: {{ ownersForm.controls.items.controls[i].controls.ownerName.value }} -->
+
+  </div>
+  <a (click)="addItem()" class="btn btn-primary m-r-20">Add more</a>
+  <br>
+  <hr>
+  <button type="submit" class="btn btn-success m-r-20">Save</button> 
 </form>

@@ -1,23 +1,42 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup, FormArray } from '@angular/forms';
+import { ClassGetter } from '@angular/compiler/src/output/output_ast';
 
 @Component({
-  selector: 'app-owners',
-  templateUrl: './owners.component.html',
-  styleUrls: ['./owners.component.css']
+   selector: 'app-owners',
+   templateUrl: './owners.component.html',
+   styleUrls: ['./owners.component.css']
 })
 export class OwnersComponent implements OnInit {
+   ownersForm: FormGroup;
+   items: FormArray;
 
-  constructor(private fb: FormBuilder, ) { }
+   constructor(private fb: FormBuilder) {
+      this.ownersForm = this.fb.group({
+         items: this.fb.array([this.createItem()])
+      });
+   }
 
-  ownersForm = this.fb.group({
-    title: ['', Validators.required],
-    ownerName: ['', Validators.required],
-  });
-  ngOnInit() {
-  }
+   ngOnInit() {
+      this.items = this.ownersForm.get('items') as FormArray;
+   }
 
-  saveOwner() {
-    console.log(this.ownersForm.value);
-  }
+   createItem(): FormGroup {
+      return this.fb.group({
+         title: ['', Validators.required],
+         ownerName: ['', Validators.required]
+      });
+   }
+
+   addItem(): void {
+      this.items.push(this.createItem());
+   }
+
+   removeItem(i: number) {
+      this.items.removeAt(i);
+   }
+
+   saveOwner() {
+      console.log(this.ownersForm.value);
+   }
 }

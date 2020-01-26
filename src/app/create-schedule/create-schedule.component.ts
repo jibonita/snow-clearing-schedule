@@ -1,11 +1,12 @@
-import { DataEntry } from "./../data/database";
-import { Component, OnInit } from "@angular/core";
+import { PdfService } from './../common/services/pdf.service';
+import { DataEntry } from './../data/database';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
-  selector: "app-create-schedule",
-  templateUrl: "./create-schedule.component.html",
-  styleUrls: ["./create-schedule.component.css"]
+  selector: 'app-create-schedule',
+  templateUrl: './create-schedule.component.html',
+  styleUrls: ['./create-schedule.component.css']
 })
 export class CreateScheduleComponent implements OnInit {
   owners = this.data.owners;
@@ -17,22 +18,35 @@ export class CreateScheduleComponent implements OnInit {
 
   startEndDateForm = this.fb.group({
     startWeek: ['', Validators.required],
-    endWeek: ['', Validators.required],
+    endWeek: ['', Validators.required]
   });
 
   minStartDate: Date;
   minEndDate: Date;
 
-  constructor(private data: DataEntry,
+  constructor(
+    private data: DataEntry,
     private fb: FormBuilder,
+    private pdfService: PdfService
   ) {
     let d = new Date();
-    this.minStartDate = new Date(d.getFullYear(), d.getMonth(), this.getMonday(d));
-    d = new Date(d.getFullYear() + 1, 2, 15);
-    this.minEndDate = new Date(d.getFullYear(), d.getMonth(), this.getMonday(d));
+    this.minStartDate = new Date(
+      d.getFullYear(),
+      d.getMonth(),
+      this.getMonday(d)
+    );
+    d = new Date(d.getFullYear() + (d.getMonth() > 6 ? 1 : 0), 2, 30);
+    this.minEndDate = new Date(
+      d.getFullYear(),
+      d.getMonth(),
+      this.getMonday(d)
+    );
   }
 
   ngOnInit() {
+    // this.startWeek = this.minStartDate;
+    // this.endWeek = this.minEndDate;
+
     // this.fillScheduleWeeks();
   }
 
@@ -123,11 +137,11 @@ export class CreateScheduleComponent implements OnInit {
   }
 
   formatDate(today) {
-    const dd = String(today.getDate()).padStart(2, "0");
-    const mm = String(today.getMonth() + 1).padStart(2, "0"); // January is 0!
+    const dd = String(today.getDate()).padStart(2, '0');
+    const mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
     const yyyy = today.getFullYear();
 
-    return dd + "/" + mm + "/" + yyyy;
+    return dd + '/' + mm + '/' + yyyy;
   }
 
   swapElements(array: any, currentIndex: number, swapIndex: number) {
@@ -137,6 +151,10 @@ export class CreateScheduleComponent implements OnInit {
   }
 
   getMonday(date) {
-    return date.getDate() + (1 + 7 - date.getDay()) % 7;
+    return date.getDate() + ((1 + 7 - date.getDay()) % 7);
+  }
+
+  savePdf() {
+    this.pdfService.generateSchedulePdf(this.scheduleList);
   }
 }

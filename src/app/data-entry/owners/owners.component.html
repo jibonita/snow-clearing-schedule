@@ -1,11 +1,11 @@
 <form [formGroup]="ownersForm" (submit)="saveOwner()">
   <div formArrayName="items" *ngFor="let item of ownersForm.get('items').controls; let i = index;">
-    <div [formGroupName]="i">
-      Title
-      <input formControlName="title" placeholder="apartment title">
-      Owner Name
-      <input formControlName="ownerName" placeholder="owner name">
-      <button (click)="removeItem(i)">Remove</button>
+    <div [formGroupName]="i" class="input-group group-block">
+      <span class="input-group-text">Title</span>
+      <input formControlName="title" placeholder="apartment title" class="form-control">
+      <span class="input-group-text">Owner Name</span>
+      <input formControlName="ownerName" placeholder="owner name" class="form-control">
+      <button (click)="removeItem(i)" class="btn btn-danger btn-sm">Remove</button>
     </div>
     <!-- Chosen name: {{ ownersForm.controls.items.controls[i].controls.ownerName.value }} -->
 
@@ -13,5 +13,5 @@
   <a (click)="addItem()" class="btn btn-primary m-r-20">Add more</a>
   <br>
   <hr>
-  <button type="submit" class="btn btn-success m-r-20">Save</button> 
+  <button type="submit" class="btn btn-success m-r-20" [disabled]="ownersForm.invalid">Save</button>
 </form>

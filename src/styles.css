@@ -1,1 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* Add data forms styles */
+.group-block {
+   margin: 10px;
+   width: 80%;
+}
+
+.group-block input {
+   margin-right: 10px;
+}
+
+.group-block button {
+   margin-left: 15px;
+}
+
+button:disabled {
+   cursor: no-drop;
+}

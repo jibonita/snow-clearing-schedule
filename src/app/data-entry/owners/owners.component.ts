@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup, FormArray } from '@angular/forms';
-import { ClassGetter } from '@angular/compiler/src/output/output_ast';
 
 @Component({
    selector: 'app-owners',

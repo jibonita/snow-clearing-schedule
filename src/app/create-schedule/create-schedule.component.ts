@@ -1,3 +1,4 @@
+import { FileUploadService } from './../common/services/file-upload.service';
 import { PdfService } from './../common/services/pdf.service';
 import { DataEntry } from './../data/database';
 import { Component, OnInit } from '@angular/core';
@@ -24,10 +25,13 @@ export class CreateScheduleComponent implements OnInit {
   minStartDate: Date;
   minEndDate: Date;
 
+  file: any;
+
   constructor(
     private data: DataEntry,
     private fb: FormBuilder,
-    private pdfService: PdfService
+    private pdfService: PdfService,
+    private uploadService: FileUploadService,
   ) {
     let d = new Date();
     this.minStartDate = new Date(
@@ -44,10 +48,14 @@ export class CreateScheduleComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.startWeek = this.minStartDate;
-    // this.endWeek = this.minEndDate;
+    this.loadSchedulePredefinedForTests();
+  }
 
-    // this.fillScheduleWeeks();
+  loadSchedulePredefinedForTests() {
+    this.startWeek = this.minStartDate;
+    this.endWeek = this.minEndDate;
+
+    this.fillScheduleWeeks();
   }
 
   generateSchedule() {
@@ -156,5 +164,27 @@ export class CreateScheduleComponent implements OnInit {
 
   savePdf() {
     this.pdfService.generateSchedulePdf(this.scheduleList);
+  }
+
+
+
+  fileChanged(event) {
+    this.file = event.target.files[0];
+  }
+
+  uploadFile() {
+    if (this.file) {
+      console.log(this.file);
+      const fileUploadForm: FormData = new FormData();
+      fileUploadForm.append('myFileName', this.file);
+      console.log(fileUploadForm);
+
+      this.uploadService.upload(fileUploadForm)
+        .subscribe(response => {
+          // handle response
+        }, err => {
+          // handle error
+        });
+    }
   }
 }

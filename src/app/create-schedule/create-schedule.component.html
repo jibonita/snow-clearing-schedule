@@ -9,6 +9,12 @@
 
 <div *ngIf="scheduleList.length">
   <div><button (click)="savePdf()">Open PDF</button></div>
+  <br>
+  <input type="file" (change)="fileChanged($event)">
+  <button (click)="uploadFile()">Upload</button>
+
+  <hr>
+  <br>
   <table class="table-stripe">
     <thead>
       <tr>

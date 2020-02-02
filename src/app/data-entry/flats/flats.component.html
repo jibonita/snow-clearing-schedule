@@ -1,0 +1,28 @@
+<form [formGroup]="flatsForm" (submit)="saveFlat()">
+  <div formArrayName="items" *ngFor="let item of flatsForm.get('items').controls; let i = index;">
+    <div [formGroupName]="i" class="input-group group-block">
+      <span class="input-group-text">Name</span>
+      <input formControlName="title" placeholder="apartment title" class="form-control">
+      <span class="input-group-text">Owner</span>
+      <!-- <input formControlName="owner" placeholder="owner name" class="form-control"> -->
+      <select class="form-control" formControlName="owner" (change)="onSelect($event.target)">
+        <option value="" disabled>select owner...</option>
+        <option *ngFor="let owner of owners" [ngValue]="owner">
+          {{owner.title}}
+        </option>
+      </select>
+
+      <div class="form-check">
+        <input formControlName="active" type="checkbox" class="form-check-input" id="isActive{{i}}" checked>
+        <label class="form-check-label" for="isActive{{i}}">Is Active</label>
+      </div>
+      <button (click)="removeItem(i)" class="btn btn-danger btn-sm">Remove</button>
+    </div>
+    <!-- Chosen name: {{ flatsForm.controls.items.controls[i].controls.owner.value }} -->
+
+  </div>
+  <a (click)="addItem()" class="btn btn-primary m-r-20">Add more</a>
+  <br>
+  <hr>
+  <button type="submit" class="btn btn-success m-r-20" [disabled]="flatsForm.invalid">Save</button>
+</form>

@@ -1,0 +1,14 @@
+input[type="checkbox"] {
+   width: 25px;
+   height: 25px;
+   cursor: pointer;
+
+}
+
+.form-check label {
+   margin: 3px 0 0 8px;
+}
+
+select {
+   margin-right: 10px;
+}

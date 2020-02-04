@@ -5,8 +5,8 @@ import { FlatsComponent } from './flats/flats.component';
 
 
 const routes: Routes = [
-    //  { path: 'add', component: DataFormsComponent },
-    { path: 'add', component: FlatsComponent },
+    { path: 'add', component: DataFormsComponent },
+    //{ path: 'add', component: FlatsComponent },
 ];
 
 @NgModule({

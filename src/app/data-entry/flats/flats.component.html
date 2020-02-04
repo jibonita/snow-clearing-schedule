@@ -19,9 +19,10 @@
       <button (click)="removeItem(i)" class="btn btn-danger btn-sm">Remove</button>
     </div>
     <!-- Chosen name: {{ flatsForm.controls.items.controls[i].controls.owner.value }} -->
-
   </div>
-  <a (click)="addItem()" class="btn btn-primary m-r-20">Add more</a>
+  <div class="p-10">
+    <button (click)="addItem()" class="btn btn-primary">Add more</button>
+  </div>
   <br>
   <hr>
   <button type="submit" class="btn btn-success m-r-20" [disabled]="flatsForm.invalid">Save</button>

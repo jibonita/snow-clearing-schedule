@@ -43,7 +43,16 @@ export class FlatsComponent implements OnInit {
   }
 
   saveFlat() {
-    console.log(this.flatsForm.value);
+    console.log(this.flatsForm.value.items);
+    this.data.flats =
+      this.flatsForm.value.items.map((flat, index) => {
+        return {
+          id: index,
+          name: flat.title,
+          owner: flat.owner.id,
+          active: flat.active
+        };
+      });
   }
 
   onSelect(element) {

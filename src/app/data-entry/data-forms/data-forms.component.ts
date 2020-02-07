@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./data-forms.component.css']
 })
 export class DataFormsComponent implements OnInit {
+  flatOpen = false;
 
   constructor() { }
 

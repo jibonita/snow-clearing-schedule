@@ -15,6 +15,7 @@ export class DataService {
 
   getOwners() {
     return from(this.data.owners);
+    // return from([]);
   }
 
   getFlats() {

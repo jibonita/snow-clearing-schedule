@@ -1,10 +1,10 @@
 <div>
   <tabset>
-    <tab heading="Owners" id="tab1">
+    <tab heading="Owners" (selectTab)="flatOpen=false" id="tab1">
       <app-owners></app-owners>
     </tab>
-    <tab heading="Flats">Flats Basic Content
-      <app-flats></app-flats>
+    <tab heading="Flats" (selectTab)="flatOpen=true">Flats Basic Content
+      <app-flats *ngIf="flatOpen"></app-flats>
     </tab>
     <tab heading="Parking Lots">Parking Lots Content</tab>
   </tabset>

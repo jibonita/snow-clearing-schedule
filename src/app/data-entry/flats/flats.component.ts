@@ -10,7 +10,7 @@ import { FormBuilder, Validators, FormGroup, FormArray } from '@angular/forms';
 })
 export class FlatsComponent implements OnInit {
 
-  owners = [];// = this.data.owners;
+  owners = [];
   flatsForm: FormGroup;
   items: FormArray;
 
@@ -28,9 +28,7 @@ export class FlatsComponent implements OnInit {
     this.items = this.flatsForm.get('items') as FormArray;
 
     this.dataService.getOwners().subscribe(
-      data => {
-        this.owners.push(data);
-      },
+      data => this.owners.push(data),
       error => { },
       () => {
         this.dataService.getFlats().subscribe(dbFlat => {

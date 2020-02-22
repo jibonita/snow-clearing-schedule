@@ -1,5 +1,5 @@
 <form [formGroup]="flatsForm" (submit)="saveFlat()">
-  <div formArrayName="items" *ngFor="let item of flatsForm.get('items').controls; let i = index;">
+  <div formArrayName="items" *ngFor="let item of flatsForm.get('items')['controls']; let i = index;">
     <div [formGroupName]="i" class="input-group group-block">
       <span class="input-group-text">Name</span>
       <input formControlName="title" placeholder="apartment title" class="form-control">

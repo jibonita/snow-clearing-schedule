@@ -1,5 +1,5 @@
 <form [formGroup]="ownersForm" (submit)="saveOwner()">
-  <div formArrayName="items" *ngFor="let item of ownersForm.get('items').controls; let i = index;">
+  <div formArrayName="items" *ngFor="let item of ownersForm.get('items')['controls']; let i = index;">
     <div [formGroupName]="i" class="input-group group-block">
       <span class="input-group-text">Title</span>
       <input formControlName="title" placeholder="apartment title" class="form-control">

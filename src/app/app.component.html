@@ -17,6 +17,8 @@
   <nav class="navbar navbar-light bg-light">
     <a class="navbar-brand" routerLink="/data/add">Add Data</a>
     <a class="navbar-brand" routerLink="/generate">Generate</a>
+    <a class="navbar-brand" routerLink="login" routerLinkActive="active" *ngIf="!auth.loggedIn">Login</a>
+    <a class="navbar-brand" (click)="logout()" href="#" *ngIf="auth.loggedIn">Logout</a>
   </nav>
   <br>
   <router-outlet></router-outlet>

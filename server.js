@@ -4,7 +4,9 @@ const app = express();
 
 app.use(express.static(path.join(__dirname, '/dist/snow-clearing-schedule')));
 
-app.get('/*', function(req, res) {
+1({ secret: 'snow-clearing-app-super-shared-secret' }).unless({ path: ['/api/auth'] }));
+
+app.get('/*', function (req, res) {
    res.sendFile(
       path.join(__dirname + '/dist/snow-clearing-schedule/index.html')
    );

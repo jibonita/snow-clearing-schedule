@@ -5,10 +5,14 @@ Clearing the parking road has a separate schedule and observes not to put the sa
 
 ## Ideas to develop
 
-- Enter flats and parking lots data pages
-- display map of parking lots
-- choose whether to have parking lots schedule
-- Extract result in PDF file
+-  Enter flats and parking lots data pages
+-  display map of parking lots
+-  choose whether to have parking lots schedule
+-  Extract result in PDF file
+
+## Preview
+
+https://snow-clearing-schedule.herokuapp.com/
 
 ## Development server
 

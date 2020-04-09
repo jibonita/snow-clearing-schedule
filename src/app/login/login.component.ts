@@ -9,8 +9,8 @@ import { first } from 'rxjs/operators';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  public username: string;
-  public password: string;
+  public username: string = 'a';
+  public password: string = 'a';
   public error: string;
 
   constructor(
@@ -26,7 +26,11 @@ export class LoginComponent implements OnInit {
       .pipe(first())
       .subscribe(
         result => this.router.navigate(['generate']),
-        err => this.error = 'Could not authenticate'
+        err => {
+          console.log(err);
+
+          this.error = 'Could not authenticate';
+        }
       );
   }
 

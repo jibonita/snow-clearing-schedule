@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -7,11 +7,18 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthService {
+  serverUrl = 'http://localhost:3000';
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: 'my-auth-token'
+    })
+  };
 
   constructor(private http: HttpClient) { }
 
   login(username: string, password: string): Observable<boolean> {
-    return this.http.post<{ token: string }>('/api/auth', { username, password })
+    return this.http.post<{ token: string }>(this.serverUrl + '/auth/login', { username, password }, this.httpOptions)
       .pipe(
         map(result => {
           localStorage.setItem('access_token', result.token);
@@ -27,4 +34,6 @@ export class AuthService {
   public get loggedIn(): boolean {
     return (localStorage.getItem('access_token') !== null);
   }
+
+
 }

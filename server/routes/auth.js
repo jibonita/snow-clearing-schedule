@@ -4,23 +4,20 @@ const users = [
         password: 'password123admin',
         role: 'admin'
     }, {
-        username: 'anna',
-        password: 'password123member',
+        username: 'a',
+        password: 'a',
         role: 'member'
     }
 ];
 
 const express = require('express');
-const app = express();
+const router = express.Router();
 
 const jwt = require('jsonwebtoken');
-const bodyParser = require('body-parser');
-
-app.use(bodyParser.json());
 
 const accessTokenSecret = 'snow-clearing-app-super-shared-secret';
 
-app.post('/login', (req, res) => {
+router.post('/login', (req, res) => {
     // Read username and password from request body
     const { username, password } = req.body;
 
@@ -28,6 +25,7 @@ app.post('/login', (req, res) => {
     const user = users.find(u => { return u.username === username && u.password === password });
 
     if (user) {
+        console.log("Ima user");
         // Generate an access token
         const accessToken = jwt.sign({ username: user.username, role: user.role }, accessTokenSecret);
 
@@ -38,3 +36,5 @@ app.post('/login', (req, res) => {
         res.send('Username or password incorrect');
     }
 });
+
+module.exports = router;

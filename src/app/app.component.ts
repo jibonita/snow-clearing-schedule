@@ -3,17 +3,17 @@ import { AuthService } from './common/services/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+   selector: 'app-root',
+   templateUrl: './app.component.html',
+   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  title = 'Snow Clearing Scheduler';
+   title = 'Snow Clearing Scheduler';
 
-  constructor(private auth: AuthService, private router: Router) { }
+   constructor(private router: Router, private auth: AuthService) {}
 
-  logout() {
-    this.auth.logout();
-    this.router.navigate(['login']);
-  }
+   logout() {
+      this.auth.logout();
+      //this.router.navigate(['login']);
+   }
 }

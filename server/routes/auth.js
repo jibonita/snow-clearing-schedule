@@ -25,9 +25,11 @@ router.post('/login', (req, res) => {
     const user = users.find(u => { return u.username === username && u.password === password });
 
     if (user) {
-        console.log("Ima user");
         // Generate an access token
-        const accessToken = jwt.sign({ username: user.username, role: user.role }, accessTokenSecret);
+        const d = new Date();
+
+        const accessToken = jwt.sign({ username: user.username, role: user.role }, accessTokenSecret, { expiresIn: '10s' });
+        console.log("Ima user");
 
         res.json({
             accessToken

@@ -4,34 +4,30 @@ import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+   selector: 'app-login',
+   templateUrl: './login.component.html',
+   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-  public username: string = 'a';
-  public password: string = 'a';
-  public error: string;
+   public username = 'a';
+   public password = 'a';
+   public error: string;
 
-  constructor(
-    private auth: AuthService,
-    private router: Router,
-  ) { }
+   constructor(private auth: AuthService, private router: Router) {}
 
-  ngOnInit(): void {
-  }
+   ngOnInit(): void {}
 
-  public submit() {
-    this.auth.login(this.username, this.password)
-      .pipe(first())
-      .subscribe(
-        result => this.router.navigate(['generate']),
-        err => {
-          console.log(err);
+   public submit() {
+      this.auth
+         .login(this.username, this.password)
+         .pipe(first())
+         .subscribe(
+            (result) => this.router.navigate(['generate']),
+            (err) => {
+               console.log(err);
 
-          this.error = 'Could not authenticate';
-        }
-      );
-  }
-
+               this.error = 'Could not authenticate';
+            }
+         );
+   }
 }

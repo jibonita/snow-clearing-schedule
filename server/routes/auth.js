@@ -14,8 +14,9 @@ const express = require('express');
 const router = express.Router();
 
 const jwt = require('jsonwebtoken');
+const config = require('../config/auth.config');
 
-const accessTokenSecret = 'snow-clearing-app-super-shared-secret';
+const accessTokenSecret = config.secret;
 
 router.post('/login', (req, res) => {
     // Read username and password from request body
@@ -28,8 +29,7 @@ router.post('/login', (req, res) => {
         // Generate an access token
         const d = new Date();
 
-        const accessToken = jwt.sign({ username: user.username, role: user.role }, accessTokenSecret, { expiresIn: '10s' });
-        console.log("Ima user");
+        const accessToken = jwt.sign({ username: user.username, role: user.role }, accessTokenSecret, { expiresIn: config.tokenExpiration });
 
         res.json({
             accessToken

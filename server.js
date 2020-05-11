@@ -5,6 +5,7 @@ const cors = require('cors')
 const mongoose = require('mongoose');
 
 const auth = require('./server/routes/auth');
+const data = require('./server/routes/data');
 
 app.use(cors({ origin: true, credentials: true }));
 
@@ -14,8 +15,8 @@ app.use(express.static(path.join(__dirname, '/dist/snow-clearing-schedule')));
 
 
 app.use('/auth', auth);
+app.use('/data', data);
 
-// ({ secret: 'snow-clearing-app-super-shared-secret' }).unless({ path: ['/api/auth'] });
 
 app.get('/*', function (req, res) {
    res.sendFile(

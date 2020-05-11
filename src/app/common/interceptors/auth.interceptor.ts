@@ -12,16 +12,13 @@ import { AuthService } from '../services/auth.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-   private AUTH_HEADER = 'Authorization';
-   private token; // = localStorage.getItem('access_token');
+   private AUTH_HEADER = 'x-access-token';
    private refreshTokenInProgress = false;
    private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(
       null
    );
 
-   constructor(public auth: AuthService) {
-      this.token = this.auth.getToken();
-   }
+   constructor(public auth: AuthService) {}
 
    intercept(
       req: HttpRequest<any>,
@@ -89,10 +86,7 @@ export class AuthInterceptor implements HttpInterceptor {
       }
 
       return request.clone({
-         //headers: request.headers.set(this.AUTH_HEADER, 'Bearer ' + this.token),
-         setHeaders: {
-            Authorization: `Bearer ${this.auth.getToken()}`,
-         },
+         headers: request.headers.set(this.AUTH_HEADER, this.auth.getToken()),
       });
    }
 }

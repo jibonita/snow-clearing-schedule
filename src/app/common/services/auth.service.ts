@@ -8,39 +8,33 @@ import { map } from 'rxjs/operators';
 })
 export class AuthService {
    serverUrl = 'http://localhost:3000';
-   // httpOptions = {
-   //    headers: new HttpHeaders({
-   //       'Content-Type': 'application/json',
-   //       Authorization: 'my-auth-token',
-   //    }),
-   // };
+   TOKEN_NAME = 'access_token';
 
    constructor(private http: HttpClient) {}
 
    public getToken(): string {
-      return localStorage.getItem('access_token');
+      return localStorage.getItem(this.TOKEN_NAME);
    }
 
    login(username: string, password: string): Observable<boolean> {
       return this.http
-         .post<{ accessToken: string }>(
-            this.serverUrl + '/auth/login',
-            { username, password }
-            //  this.httpOptions
-         )
+         .post<{ accessToken: string }>(this.serverUrl + '/auth/login', {
+            username,
+            password,
+         })
          .pipe(
             map((result) => {
-               localStorage.setItem('access_token', result.accessToken);
+               localStorage.setItem(this.TOKEN_NAME, result.accessToken);
                return true;
             })
          );
    }
 
    logout() {
-      localStorage.removeItem('access_token');
+      localStorage.removeItem(this.TOKEN_NAME);
    }
 
    public get loggedIn(): boolean {
-      return localStorage.getItem('access_token') !== null;
+      return localStorage.getItem(this.TOKEN_NAME) !== null;
    }
 }

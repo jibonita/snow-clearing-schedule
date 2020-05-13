@@ -15,13 +15,15 @@
 
   </div>
   <nav class="navbar navbar-light bg-light">
-    <a class="navbar-brand" routerLink="/data/add">Add Data</a>
-    <a class="navbar-brand" routerLink="/generate">Generate</a>
+    <a class="navbar-brand" routerLink="/data/add" *ngIf="auth.loggedIn">Add Data</a>
+    <a class="navbar-brand" routerLink="/generate" *ngIf="auth.loggedIn">Generate</a>
     <a class="navbar-brand" routerLink="login" routerLinkActive="active" *ngIf="!auth.loggedIn">Login</a>
-    <a class="navbar-brand" (click)="logout()" href="#" *ngIf="auth.loggedIn">Logout</a>
+    <a class="navbar-brand" (click)="logout()" *ngIf="auth.loggedIn">Logout</a>
   </nav>
   <br>
-  <router-outlet></router-outlet>
+  <router-outlet>
+    <img src="../assets/hand-clearing.jpg" *ngIf="!auth.loggedIn" style="position:absolute; width: 100%" />
+  </router-outlet>
 </body>
 
 </html>

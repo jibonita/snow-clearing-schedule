@@ -46,12 +46,12 @@ export class AuthInterceptor implements HttpInterceptor {
       );
    }
 
+   // TODO
    private refreshAccessToken(): Observable<any> {
       return of('secret token');
    }
 
    private addAuthenticationToken(request: HttpRequest<any>): HttpRequest<any> {
-      console.log(this.auth.getToken());
       // If we do not have a token yet then we should not set the header.
       // Here we could first retrieve the token from where we store it.
       if (!this.auth.getToken()) {
@@ -72,6 +72,11 @@ export class AuthInterceptor implements HttpInterceptor {
       req: HttpRequest<any>,
       next: HttpHandler
    ): Observable<any> {
+      // TODO: Refresh token
+      this.auth.logout();
+      this.router.navigateByUrl(`/`);
+
+      /// ..................
       // 401 errors are most likely going to be because we have an expired token that we need to refresh.
       if (this.refreshTokenInProgress) {
          // If refreshTokenInProgress is true, we will wait until refreshTokenSubject has a non-null value

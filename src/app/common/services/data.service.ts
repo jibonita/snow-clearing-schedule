@@ -9,26 +9,17 @@ import { from } from 'rxjs';
 export class DataService {
    // temp fields here
    serverUrl = 'http://localhost:3000';
-   // httpOptions = {
-   //    headers: new HttpHeaders({
-   //       'Content-Type': 'application/json',
-   //       Authorization: 'my-auth-token',
-   //    }),
-   // };
 
    constructor(private http: HttpClient, private data: DataEntry) {}
 
    getOwners() {
-      return this.http.get<any>(
-         this.serverUrl + '/data/owners'
-         // this.httpOptions
-      );
+      return this.http.get<any>(this.serverUrl + '/data/owners');
       //return from(this.data.owners);
    }
 
    getFlats() {
-      return from(this.data.flats);
-      //return from([]);
+      return this.http.get<any>(this.serverUrl + '/data/flats');
+      // return from(this.data.flats);
    }
 
    getParkingLots() {

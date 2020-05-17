@@ -2,6 +2,7 @@ import { DataEntry } from './../../data/database';
 import { DataService } from './../../common/services/data.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup, FormArray } from '@angular/forms';
+import { Owner } from 'src/app/data/owner.model';
 
 @Component({
    selector: 'app-owners',
@@ -27,9 +28,9 @@ export class OwnersComponent implements OnInit {
    ngOnInit() {
       this.items = this.ownersForm.get('items') as FormArray;
       this.dataService.getOwners().subscribe(
-         (data: { owners: any }) => {
-            // TODO: add data types
-            const owners = data.owners;
+         (data: { owners: Owner[] }) => {
+            const owners: Owner[] = data.owners;
+
             this.owners.push(...owners);
             owners.forEach((owner) => {
                this.items.push(

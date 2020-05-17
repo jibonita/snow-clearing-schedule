@@ -4,7 +4,6 @@
       <span class="input-group-text">Name</span>
       <input formControlName="title" placeholder="apartment title" class="form-control">
       <span class="input-group-text">Owner</span>
-      <!-- <input formControlName="owner" placeholder="owner name" class="form-control"> -->
       <select class="form-control" formControlName="owner" (change)="onSelect($event.target)">
         <option [ngValue]="null" disabled>select owner...</option>
         <option *ngFor="let owner of owners" [ngValue]="owner">

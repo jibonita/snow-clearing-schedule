@@ -28,51 +28,28 @@ export class FlatsComponent implements OnInit {
    ngOnInit() {
       this.items = this.flatsForm.get('items') as FormArray;
 
-      this.dataService.getOwners().subscribe(
-         (data: { owners: Owner[] }) => {
-            const owners: Owner[] = data.owners;
-            this.owners.push(...owners);
-         },
-         (error) => {},
-         () => {
-            this.dataService
-               .getFlats()
-               .subscribe((dbFlat: { flats: Flat[] }) => {
-                  const flats: Flat[] = dbFlat.flats;
-                  flats.forEach((flat: Flat) => {
-                     this.items.push(
-                        this.fb.group({
-                           title: [flat.name, Validators.required],
-                           owner: [
-                              this.owners[flat.owner - 1],
-                              Validators.required,
-                           ],
-                           active: [flat.active],
-                        })
-                     );
-                  });
+      this.dataService.getOwners().subscribe((data: { owners: Owner[] }) => {
+         const owners: Owner[] = data.owners;
+         this.owners.push(...owners);
 
-                  //  if (dbFlat) {
-                  //     this.items.push(
-                  //        this.fb.group({
-                  //           title: [dbFlat.name, Validators.required],
-                  //           owner: [
-                  //              this.owners[dbFlat.owner - 1],
-                  //              Validators.required,
-                  //           ],
-                  //           active: [dbFlat.active],
-                  //        })
-                  //     );
-                  //     console.log(this.items);
-                  //  }
+         this.dataService.getFlats().subscribe((dbFlats: { flats: Flat[] }) => {
+            const flats: Flat[] = dbFlats.flats;
+            flats.forEach((flat: Flat) => {
+               this.items.push(
+                  this.fb.group({
+                     title: [flat.name, Validators.required],
+                     owner: [this.owners[flat.owner - 1], Validators.required],
+                     active: [flat.active],
+                  })
+               );
+            });
 
-                  if (!this.items.length) {
-                     console.log('prazno items');
-                     this.addItem();
-                  }
-               });
-         }
-      );
+            if (!this.items.length) {
+               console.log('prazno items');
+               this.addItem();
+            }
+         });
+      });
    }
 
    createItem(): FormGroup {

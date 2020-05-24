@@ -20,46 +20,34 @@ export class OwnersComponent implements OnInit {
       private dataService: DataService
    ) {
       this.ownersForm = this.fb.group({
-         // items: this.fb.array([this.createItem()])
          items: this.fb.array([]),
       });
    }
 
    ngOnInit() {
       this.items = this.ownersForm.get('items') as FormArray;
-      this.dataService.getOwners().subscribe(
-         (data: { owners: Owner[] }) => {
-            const owners: Owner[] = data.owners;
 
-            this.owners.push(...owners);
-            owners.forEach((owner) => {
-               this.items.push(
-                  this.fb.group({
-                     title: [owner.title, Validators.required],
-                     ownerName: [owner.ownerName, Validators.required],
-                  })
-               );
-            });
+      this.dataService.getOwners().subscribe((data: { owners: Owner[] }) => {
+         const owners: Owner[] = data.owners;
+         this.owners.push(...owners);
 
-            // this.owners.push(data);
-            // if (data) {
-            //    this.items.push(
-            //       this.fb.group({
-            //          title: [data.title, Validators.required],
-            //          ownerName: [data.ownerName, Validators.required],
-            //       })
-            //    );
-            // }
+         this.fillOwnersForm(owners);
+      });
+   }
 
-            console.log(this.owners);
-         },
-         (error) => {},
-         () => {
-            if (!this.items.length) {
-               this.addItem();
-            }
-         }
-      );
+   fillOwnersForm(owners: Owner[]) {
+      owners.forEach((owner) => {
+         this.items.push(
+            this.fb.group({
+               title: [owner.title, Validators.required],
+               ownerName: [owner.ownerName, Validators.required],
+            })
+         );
+      });
+
+      if (!this.items.length) {
+         this.addItem();
+      }
    }
 
    createItem(): FormGroup {

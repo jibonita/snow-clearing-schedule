@@ -2,8 +2,10 @@ import { DataService } from './../../common/services/data.service';
 import { DataEntry } from './../../data/database';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup, FormArray } from '@angular/forms';
-import { Owner } from 'src/app/data/owner.model';
-import { Flat } from 'src/app/data/flat.model';
+import { Owner } from './../../common/models/owner.model';
+import { Flat } from './../../common/models/flat.model';
+import { forkJoin } from 'rxjs/internal/observable/forkJoin';
+import { zip } from 'rxjs/internal/observable/zip';
 
 @Component({
    selector: 'app-flats',
@@ -27,6 +29,13 @@ export class FlatsComponent implements OnInit {
 
    ngOnInit() {
       this.items = this.flatsForm.get('items') as FormArray;
+      // NOT WORKING!!!!!
+      // zip([
+      //    this.dataService.getOwners(),
+      //    this.dataService.getFlats(),
+      // ]).subscribe((data) => {
+      //    console.log(data);
+      // });
 
       this.dataService.getOwners().subscribe((data: { owners: Owner[] }) => {
          const owners: Owner[] = data.owners;
@@ -34,22 +43,32 @@ export class FlatsComponent implements OnInit {
 
          this.dataService.getFlats().subscribe((dbFlats: { flats: Flat[] }) => {
             const flats: Flat[] = dbFlats.flats;
-            flats.forEach((flat: Flat) => {
-               this.items.push(
-                  this.fb.group({
-                     title: [flat.name, Validators.required],
-                     owner: [this.owners[flat.owner - 1], Validators.required],
-                     active: [flat.active],
-                  })
-               );
-            });
-
-            if (!this.items.length) {
-               console.log('prazno items');
-               this.addItem();
-            }
+            this.fillOwnersForm(flats, owners);
          });
       });
+   }
+
+   fillOwnersForm(flats: Flat[], owners: Owner[]) {
+      console.log(flats);
+      flats.forEach((flat: Flat) => {
+         //  console.log(this.owners.find((owner) => owner.id === flat.owner));
+         this.items.push(
+            this.fb.group({
+               title: [flat.name, Validators.required],
+               owner: [
+                  this.owners.find((owner) => owner.id === flat.owner),
+                  Validators.required,
+               ],
+               //owner: [this.owners[flat.owner - 1], Validators.required],
+               active: [flat.active],
+            })
+         );
+      });
+
+      if (!this.items.length) {
+         console.log('prazno items');
+         this.addItem();
+      }
    }
 
    createItem(): FormGroup {
@@ -69,7 +88,7 @@ export class FlatsComponent implements OnInit {
    }
 
    saveFlat() {
-      console.log(this.flatsForm.value.items);
+      //console.log(this.flatsForm.value.items);
       this.data.flats = this.flatsForm.value.items.map((flat, index) => {
          return {
             id: index,
@@ -78,6 +97,7 @@ export class FlatsComponent implements OnInit {
             active: flat.active,
          };
       });
+      console.log(this.data.flats);
    }
 
    onSelect(element) {

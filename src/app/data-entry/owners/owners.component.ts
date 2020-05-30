@@ -2,7 +2,7 @@ import { DataEntry } from './../../data/database';
 import { DataService } from './../../common/services/data.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup, FormArray } from '@angular/forms';
-import { Owner } from 'src/app/data/owner.model';
+import { Owner } from './../../common/models/owner.model';
 
 @Component({
    selector: 'app-owners',
@@ -39,6 +39,7 @@ export class OwnersComponent implements OnInit {
       owners.forEach((owner) => {
          this.items.push(
             this.fb.group({
+               id: [owner.id],
                title: [owner.title, Validators.required],
                ownerName: [owner.ownerName, Validators.required],
             })
@@ -52,6 +53,7 @@ export class OwnersComponent implements OnInit {
 
    createItem(): FormGroup {
       return this.fb.group({
+         id: '',
          title: ['', Validators.required],
          ownerName: ['', Validators.required],
       });
@@ -61,18 +63,21 @@ export class OwnersComponent implements OnInit {
       this.items.push(this.createItem());
    }
 
-   removeItem(i: number) {
+   removeItem(i: number, element) {
       this.items.removeAt(i);
+      this.dataService.deleteOwner(element.id).subscribe(console.log);
    }
 
    saveOwner() {
       console.log(this.ownersForm.value);
       this.data.owners = this.ownersForm.value.items.map((owner, index) => {
          return {
-            id: index,
+            id: owner.id,
             title: owner.title,
             ownerName: owner.ownerName,
          };
       });
+
+      console.log(this.data.owners);
    }
 }

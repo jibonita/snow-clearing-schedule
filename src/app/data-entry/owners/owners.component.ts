@@ -65,12 +65,18 @@ export class OwnersComponent implements OnInit {
 
    removeItem(i: number, element) {
       this.items.removeAt(i);
-      this.dataService.deleteOwner(element.id).subscribe(console.log);
+      // const pepa = this.items.value.map((item) => item);
+      // console.log(pepa);
+      this.dataService.deleteOwner(element.id).subscribe(() => {
+         const pepa = this.items.value.map((item) => item);
+         console.log(pepa);
+      });
    }
 
    saveOwner() {
       console.log(this.ownersForm.value);
-      this.data.owners = this.ownersForm.value.items.map((owner, index) => {
+      //this.data.owners =
+      this.ownersForm.value.items.map((owner) => {
          return {
             id: owner.id,
             title: owner.title,
@@ -78,6 +84,21 @@ export class OwnersComponent implements OnInit {
          };
       });
 
-      console.log(this.data.owners);
+      //console.log(this.data.owners);
+   }
+
+   arrayDifference(a1, a2) {
+      return a2.filter((elem) => {
+         // tslint:disable-next-line: no-bitwise
+         return !~a1.indexOf(elem);
+         // return a1.indexOf(elem) === -1;
+      });
+      // let result = [];
+      // for (var i = 0; i < a2.length; i++) {
+      //    if (a1.indexOf(a2[i]) === -1) {
+      //       result.push(a2[i]);
+      //    }
+      // }
+      // return result;
    }
 }

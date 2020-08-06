@@ -39,6 +39,7 @@ export class FlatsComponent implements OnInit {
 
       this.dataService.getOwners().subscribe((data: { owners: Owner[] }) => {
          const owners: Owner[] = data.owners;
+         console.log(owners);
          this.owners.push(...owners);
 
          this.dataService.getFlats().subscribe((dbFlats: { flats: Flat[] }) => {

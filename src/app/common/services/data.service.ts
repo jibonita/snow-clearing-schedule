@@ -53,7 +53,7 @@ export class DataService {
    deleteOwner(id: number) {
       return this.http.delete<any>(this.deleteOwnerUrl + '/' + id).pipe(
          map((value) => {
-            this.ownersList.resetCache();
+            this.ownersList.refresh();
             return value;
          })
       );
